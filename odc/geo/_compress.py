@@ -55,7 +55,7 @@ def _compress_image(im: np.ndarray, driver="PNG", **opts) -> bytes:
     }
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", rasterio.errors.NotGeoreferencedWarning)
-
+        print(rio_opts)
         with rasterio.env.Env(session=rasterio.session.DummySession()):
             with rasterio.MemoryFile() as mem:
                 with mem.open(**rio_opts) as dst:
