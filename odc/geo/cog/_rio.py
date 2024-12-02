@@ -225,6 +225,8 @@ def _write_cog(
                 dst.update_tags(**tags)
 
     # Deal efficiently with "no overviews needed case"
+    print("no overviews needed")
+    print(rio_opts)
     if len(overview_levels) == 0:
         if fname == ":mem:":
             with rasterio.MemoryFile() as mem:
@@ -239,7 +241,8 @@ def _write_cog(
     # copy re-compresses anyway so skip compression for temp image
     tmp_opts = _without(rio_opts, "compress", "predictor", "zlevel")
     tmp_opts.update(intermediate_compression)
-
+    print("mem.open")
+    print(rio_opts)
     with rasterio.Env(GDAL_TIFF_OVR_BLOCKSIZE=ovr_blocksize):
         with rasterio.MemoryFile() as mem:
             with mem.open(driver="GTiff", **tmp_opts) as tmp:
